@@ -1,50 +1,65 @@
 from flask_restful_swagger_2 import Schema
 
 
-class PartRequestBody(Schema):
+class TextRequestBody(Schema):
     type = 'object'
     properties = {
-        'part_num': {
+        'token': {
             'type': 'string'
         },
-        'barcode': {
+        'message': {
+            'type': 'string'
+        }
+    }
+    required = ['token', 'message']
+
+
+class StickerRequestBody(Schema):
+    type = 'object'
+    properties = {
+        'token': {
             'type': 'string'
         },
-        'fw_ver': {
+        'message': {
             'type': 'string'
+        },
+        'sticker_id': {
+            'type': 'integer'
+        },
+        'package_id': {
+            'type': 'integer'
         }
     }
-    required = ['part_num', 'barcode', 'fw_ver']
+    required = ['token', 'message', 'sticker_id', 'package_id']
 
 
-class PartMeta(Schema):
+class ImageUrlRequestBody(Schema):
     type = 'object'
     properties = {
-        'mid': {'type': 'string'},
-        'part_num': {'type': 'string'},
-    }
-
-
-class CreateBikeRequestBody(Schema):
-    type = 'object'
-    properties = {
-        'vin': {'type': 'string'},
-        'spec_id': {'type': 'integer'},
-        'parts': {
-            'type': 'array',
-            'items': PartMeta
+        'token': {
+            'type': 'string'
+        },
+        'message': {
+            'type': 'string'
+        },
+        'url': {
+            'type': 'integer'
         }
     }
-    required = ['vin', 'spec_id', 'parts']
+    required = ['token', 'message', 'url']
 
 
-class CompareBikeRequestBody(Schema):
+class ImagePathRequestBody(Schema):
     type = 'object'
     properties = {
-        'vin': {'type': 'string'},
-        'parts': {
-            'type': 'array',
-            'items': PartMeta
+        'token': {
+            'type': 'string'
+        },
+        'message': {
+            'type': 'string'
+        },
+        'url': {
+            'type': 'integer'
         }
     }
-    required = ['vin', 'parts']
+    required = ['token', 'message', 'url']
