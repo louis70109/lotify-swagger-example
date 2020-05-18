@@ -1,84 +1,35 @@
-import uuid
-from flask import Flask, render_template, request
 import os
 
-from lotify.client import Client
+from flask import Flask
+from flask_cors import CORS
+from flask_restful_swagger_2 import Api
+
+from controller.authorizer_controller import RootController, CallbackController, RevokeTokenController
+from controller.event_controller import TextController, StickerController, ImageUrlController, ImagePathController
 
 app = Flask(__name__)
-
-CLIENT_ID = os.getenv('LINE_CLIENT_ID')
-SECRET = os.getenv('LINE_CLIENT_SECRET')
-URI = os.getenv('LINE_REDIRECT_URI')
-lotify = Client(client_id=CLIENT_ID, client_secret=SECRET, redirect_uri=URI)
+CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
 
 
-# or use by default
-# lotify = Client()
+def is_local():
+    return True if os.environ.get('IS_OFFLINE', None) else False
 
 
-@app.route('/')
-def home():
-    link = lotify.get_auth_link(state=uuid.uuid4())
-    return render_template('notify_index.html', auth_url=link)
+# https://github.com/swagger-api/swagger-codegen/issues/7847#issuecomment-374512375
+api = Api(app,
+          host=os.environ.get('API_DOMAIN') if not is_local() else 'localhost:5000',
+          schemes=['https'] if not is_local() else ['http'],
+          base_path='/',
+          api_version='0.0.1',
+          api_spec_url='/api/swagger')
 
-
-@app.route('/callback')
-def confirm():
-    token = lotify.get_access_token(code=request.args.get('code'))
-    return render_template('notify_confirm.html', token=token)
-
-
-@app.route('/notify/send', methods=['POST'])
-def send():
-    payload = request.get_json()
-    response = lotify.send_message(
-        access_token=payload.get('token'),
-        message=payload.get('message')
-    )
-    return {'result': response.get('message')}, response.get('status')
-
-
-@app.route('/notify/send/sticker', methods=['POST'])
-def send_sticker():
-    payload = request.get_json()
-    response = lotify.send_message_with_sticker(
-        access_token=payload.get('token'),
-        message=payload.get('message'),
-        sticker_id=630,
-        sticker_package_id=4
-    )
-    return {'result': response.get('message')}, response.get('status')
-
-
-@app.route('/notify/send/url', methods=['POST'])
-def send_url():
-    payload = request.get_json()
-    response = lotify.send_message_with_image_url(
-        access_token=payload.get('token'),
-        message=payload.get('message'),
-        image_fullsize=payload.get('url'),
-        image_thumbnail=payload.get('url')
-    )
-    return {'result': response.get('message')}, response.get('status')
-
-
-@app.route('/notify/send/path', methods=['POST'])
-def send_file():
-    payload = request.get_json()
-    response = lotify.send_message_with_image_path(
-        access_token=payload.get('token'),
-        message=payload.get('message'),
-        image_path='./test_data/dog.png'
-    )
-    return {'result': response.get('message')}, response.get('status')
-
-
-@app.route('/notify/revoke', methods=['POST'])
-def revoke():
-    payload = request.get_json()
-    response = lotify.revoke(access_token=payload.get('token'))
-    return {'result': response.get('message')}, response.get('status')
-
+api.add_resource(RootController, "/")
+api.add_resource(CallbackController, "/callback")
+api.add_resource(RevokeTokenController, "/notify/revoke")
+api.add_resource(TextController, "/notify/send")
+api.add_resource(StickerController, "/notify/sticker")
+api.add_resource(ImageUrlController, "/notify/url")
+api.add_resource(ImagePathController, "/notify/path")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
