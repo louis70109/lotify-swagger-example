@@ -22,14 +22,14 @@
 
 # 本地端測試
 
-```sh
+```
 cp .env.sample .env
 python api.py
 ```
 
 或是
 
-```dockerfile
+```
 cp .env.sample .env
 docker-compose up
 ```
