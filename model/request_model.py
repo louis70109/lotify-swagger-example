@@ -43,23 +43,7 @@ class ImageUrlRequestBody(Schema):
             'type': 'string'
         },
         'url': {
-            'type': 'integer'
-        }
-    }
-    required = ['token', 'message', 'url']
-
-
-class ImagePathRequestBody(Schema):
-    type = 'object'
-    properties = {
-        'token': {
             'type': 'string'
-        },
-        'message': {
-            'type': 'string'
-        },
-        'url': {
-            'type': 'integer'
         }
     }
     required = ['token', 'message', 'url']
