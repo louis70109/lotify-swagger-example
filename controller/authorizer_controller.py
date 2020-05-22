@@ -37,9 +37,9 @@ class CallbackController(Resource):
 
 class RevokeTokenController(Resource):
     @swagger.doc({
-        'tags': ['Text'],
-        'description': 'Send LINE Noitfy text message',
-        'operationId': 'sendText',
+        'tags': ['Revoke'],
+        'description': 'Revoke token',
+        'operationId': 'revokeToken',
         'parameters': [{
             'name': 'body',
             'description': 'Revoke token',

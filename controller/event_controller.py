@@ -54,12 +54,12 @@ class TextController(Resource):
 
 class StickerController(Resource):
     @swagger.doc({
-        'tags': ['Text'],
-        'description': 'Send LINE Noitfy text message',
-        'operationId': 'sendText',
+        'tags': ['Sticker'],
+        'description': 'Send LINE Noitfy text message with sticker',
+        'operationId': 'sendSticker',
         'parameters': [{
             'name': 'body',
-            'description': 'Send LINE Noitfy text message',
+            'description': 'Send LINE Noitfy text message with sticker',
             'in': 'body',
             'schema': StickerRequestBody,
             'required': True
@@ -87,12 +87,12 @@ class StickerController(Resource):
 
 class ImageUrlController(Resource):
     @swagger.doc({
-        'tags': ['Text'],
-        'description': 'Send LINE Noitfy text message',
-        'operationId': 'sendText',
+        'tags': ['Image'],
+        'description': 'Send LINE Noitfy text message with image url',
+        'operationId': 'sendImageUrl',
         'parameters': [{
             'name': 'body',
-            'description': 'Send LINE Noitfy text message',
+            'description': 'Send LINE Noitfy text message with image url',
             'in': 'body',
             'schema': ImageUrlRequestBody,
             'required': True
@@ -120,9 +120,9 @@ class ImageUrlController(Resource):
 
 class ImageFileController(Resource):
     @swagger.doc({
-        'tags': ['Text'],
-        'description': 'Send LINE Noitfy text message',
-        'operationId': 'sendText',
+        'tags': ['Image'],
+        'description': 'Send LINE Noitfy text message with file',
+        'operationId': 'sendImageFile',
         'parameters': [{
             'name': 'file',
             'description': 'Upload file',
