@@ -1,6 +1,7 @@
 Flask==1.0.2
 flask-restful==0.3.7
 requests==2.23.0
+flask_cors
 lotify
 gunicorn
 flask-restful-swagger-2==0.35
