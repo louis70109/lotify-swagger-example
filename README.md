@@ -22,17 +22,9 @@
 
 ```
 cp .env.sample .env
+export IS_OFFLINE=true
 python api.py
 ```
-
-或是
-
-```
-cp .env.sample .env
-docker-compose up
-```
-
-> 兩個方法擇一
 
 # 步驟
 
