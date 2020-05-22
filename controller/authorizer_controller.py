@@ -6,6 +6,9 @@ from flask_restful import Resource
 from flask_restful_swagger_2 import swagger
 from lotify.client import Client
 
+from model.request_model import RevokeRequestBody
+from model.response_model import NotifyResponse
+
 CLIENT_ID = os.getenv('LINE_NOTIFY_CLIENT_ID')
 SECRET = os.getenv('LINE_NOTIFY_CLIENT_SECRET')
 URI = os.getenv('LINE_NOTIFY_REDIRECT_URI')
@@ -33,8 +36,28 @@ class CallbackController(Resource):
 
 
 class RevokeTokenController(Resource):
-
+    @swagger.doc({
+        'tags': ['Text'],
+        'description': 'Send LINE Noitfy text message',
+        'operationId': 'sendText',
+        'parameters': [{
+            'name': 'body',
+            'description': 'Revoke token',
+            'in': 'body',
+            'schema': RevokeRequestBody,
+            'required': True
+        }],
+        'responses': {
+            '200': {
+                'description': 'Text message',
+                'schema': NotifyResponse,
+                'examples': {
+                    'application/json': {'status': 200, 'message': 'ok'}
+                }
+            }
+        }
+    })
     def post(self):
         payload = request.get_json()
         response = lotify.revoke(access_token=payload.get('token'))
-        return {'result': response.get('message')}, response.get('status')
+        return response

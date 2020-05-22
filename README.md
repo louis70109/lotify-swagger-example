@@ -81,9 +81,9 @@ docker-compose up
   - LINE Notify 的設定以及認證完後的 callback 路由
 - 幫忙發送推播的路由(因為有[ CORS 問題](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)所以需要一個 api 來幫忙轉發)
     - POST /notify/send
-    - POST /notify/send_sticker
-    - POST /notify/send_url
-    - POST /notify/send_path
+    - POST /notify/sticker
+    - POST /notify/url
+    - POST /notify/file
     - POST /notify/revoke
 
 # 授權

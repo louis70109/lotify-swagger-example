@@ -47,3 +47,13 @@ class ImageUrlRequestBody(Schema):
         }
     }
     required = ['token', 'message', 'url']
+
+
+class RevokeRequestBody(Schema):
+    type = 'object'
+    properties = {
+        'token': {
+            'type': 'string'
+        }
+    }
+    required = ['token']
