@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_restful_swagger_2 import Api
 
 from controller.authorizer_controller import RootController, CallbackController, RevokeTokenController
-from controller.event_controller import TextController, StickerController, ImageUrlController, ImagePathController
+from controller.event_controller import TextController, StickerController, ImageUrlController, ImageFileController
 
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
@@ -29,7 +29,7 @@ api.add_resource(RevokeTokenController, "/notify/revoke")
 api.add_resource(TextController, "/notify/send")
 api.add_resource(StickerController, "/notify/sticker")
 api.add_resource(ImageUrlController, "/notify/url")
-api.add_resource(ImagePathController, "/notify/path")
+api.add_resource(ImageFileController, "/notify/file")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
