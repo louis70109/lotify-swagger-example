@@ -17,8 +17,8 @@ def is_local():
 
 # https://github.com/swagger-api/swagger-codegen/issues/7847#issuecomment-374512375
 api = Api(app,
-          host=os.environ.get('API_DOMAIN') if not is_local() else 'localhost:5000',
-          schemes=['https'] if not is_local() else ['http'],
+          host='localhost:5000',
+          schemes=['http'],
           base_path='/',
           api_version='0.0.1',
           api_spec_url='/api/swagger')
