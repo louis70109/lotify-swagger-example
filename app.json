@@ -1,9 +1,9 @@
 {
   "name": "flask-line-notify",
-  "description": "Line Notify Template",
+  "description": "LINE Notify Template",
   "repository": "https://github.com/louis70109/flask-line-notify",
   "keywords": [
-    "Line",
+    "LINE",
     "flask",
     "python",
     "static"
