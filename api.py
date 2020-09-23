@@ -10,19 +10,20 @@ from controller.event_controller import TextController, StickerController, Image
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
 
+local = os.environ.get('IS_OFFLINE')
+
 
 def is_local():
-    return True if os.environ.get('IS_OFFLINE', None) else False
+    return True if local else False
 
 
 # https://github.com/swagger-api/swagger-codegen/issues/7847#issuecomment-374512375
 api = Api(app,
-          host='localhost:5000',
-          schemes=['http'],
+          host='localhost:5000' if local else '0.0.0.0:5000',
+          schemes=['http' if local else 'https'],
           base_path='/',
           api_version='0.0.1',
           api_spec_url='/api/swagger')
-
 api.add_resource(RootController, "/")
 api.add_resource(CallbackController, "/callback")
 api.add_resource(RevokeTokenController, "/notify/revoke")
