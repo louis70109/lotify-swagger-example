@@ -1,7 +1,7 @@
 {
-  "name": "flask-line-notify",
+  "name": "lotify-swagger-example",
   "description": "LINE Notify Template",
-  "repository": "https://github.com/louis70109/flask-line-notify",
+  "repository": "https://github.com/louis70109/lotify-swagger-example",
   "keywords": [
     "LINE",
     "flask",
