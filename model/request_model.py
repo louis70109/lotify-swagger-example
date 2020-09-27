@@ -57,3 +57,38 @@ class RevokeRequestBody(Schema):
         }
     }
     required = ['token']
+
+
+class CodeRequestBody(Schema):
+    type = 'object'
+    properties = {
+        'client_id': {
+            'type': 'string'
+        },
+        'client_secret': {
+            'type': 'string'
+        },
+        'redirect_uri': {
+            'type': 'string'
+        },
+        'code': {
+            'type': 'string'
+        }
+    }
+    required = ['code', 'client_id', 'client_secret', 'redirect_uri']
+
+
+class LinkRequestBody(Schema):
+    type = 'object'
+    properties = {
+        'client_id': {
+            'type': 'string'
+        },
+        'redirect_uri': {
+            'type': 'string'
+        },
+        'state': {
+            'type': 'string'
+        },
+    }
+    required = ['client_id', 'redirect_uri']
