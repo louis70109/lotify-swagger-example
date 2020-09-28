@@ -11,12 +11,12 @@ from controller.event_controller import TextController, StickerController, Image
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
 
-DOMAIN = os.environ.get('DOMAIN')
+DOMAIN = os.environ.get('DOMAIN_NAME')
 PORT = os.environ.get('PORT') or 5000
 
 
 def is_local():
-    return True if DOMAIN else False
+    return True if os.environ.get('LOCAL') else False
 
 
 api = Api(app,

@@ -15,17 +15,38 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-按下上面部署按鈕之後需要設定 LINE Notify 所需三個`環境變數`
+按下上面部署按鈕之後需要設定 LINE Notify 基本所需三個 `環境變數`
 ![heroku-env-settings](https://i.imgur.com/wV5rUyMl.png)
+
+以下則是環境變數所有的詳細介紹
+
+# 環境變數
+
+```
+LINE_NOTIFY_CLIENT_ID=
+LINE_NOTIFY_CLIENT_SECRET=
+LINE_NOTIFY_REDIRECT_URI=
+// 三個 LINE Notify 需要的參數
+DOMAIN_NAME=  // swagger 相關參數
+LOCAL=true  // 預設本地端 true，若是上限則需 false | None 
+PORT= // API port
+```
 
 # 本地端測試
 
 ```
 cp .env.sample .env
-export IS_OFFLINE=true
-python api.py
+LOCAL=true python api.py
 ```
 
+## Docker
+
+```
+docker build -t lotify-swagger .
+docker run --rm \
+-e LOCAL=true LINE_NOTIFY_CLIENT_ID= LINE_NOTIFY_CLIENT_SECRET= LINE_NOTIFY_REDIRECT_URI= \
+-p 5000:5000 lotify-swagger  
+```
 # 步驟
 
 ### [LINE Notify](https://notify-bot.line.me/zh_TW/) 基本設定
@@ -69,16 +90,20 @@ python api.py
 
 # 路由
 
-- GET /
-  - 使用者點選綁定的畫面
-- GET /callback
-  - LINE Notify 的設定以及認證完後的 callback 路由
-- 幫忙發送推播的路由(因為有[ CORS 問題](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)所以需要一個 api 來幫忙轉發)
-  - POST /notify/send
-  - POST /notify/sticker
-  - POST /notify/url
-  - POST /notify/file
-  - POST /notify/revoke
+- 配合前端 template
+    - GET /
+      - 使用者點選綁定的畫面
+    - GET /callback
+      - LINE Notify 的設定以及認證完後的 callback 路由
+  
+- 幫忙發送推播的路由(因為有[ CORS 問題](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)所以需要 api 來幫忙轉發)
+    - <mark>取得連結</mark> POST /notify/link 
+    - <mark>換取 Token</mark> POST /notify/change
+    - <mark>發送文字訊息</mark> POST /notify/send
+    - <mark>發送貼圖訊息</mark> POST /notify/sticker
+    - <mark>發送圖片 by 網址</mark> POST /notify/url
+    - <mark>發送圖片 by 檔案</mark> POST /notify/file
+    - <mark>註銷 Token</mark> POST /notify/revoke
 
 # 授權
 
