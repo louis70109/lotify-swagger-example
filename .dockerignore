@@ -1,0 +1,8 @@
+requirements.txt
+README.md
+Procfile
+MIT-LICENSE
+app.json
+.env.sample
+.gitignore
+test_data
