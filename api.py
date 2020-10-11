@@ -20,8 +20,8 @@ def is_local():
 
 
 api = Api(app,
-          host=f'localhost:{PORT}' if is_local else DOMAIN,
-          schemes=['http' if is_local else 'https'],
+          host=f'localhost:{PORT}' if is_local() else DOMAIN,
+          schemes=['http' if is_local() else 'https'],
           base_path='/',
           api_version='0.0.1',
           api_spec_url='/api/swagger')
