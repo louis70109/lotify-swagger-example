@@ -44,7 +44,8 @@ LOCAL=true python api.py
 ```
 docker build -t lotify-swagger .
 docker run --rm \
--e LOCAL=true LINE_NOTIFY_CLIENT_ID= LINE_NOTIFY_CLIENT_SECRET= LINE_NOTIFY_REDIRECT_URI= \
+-e LOCAL=true -e LINE_NOTIFY_CLIENT_ID= \
+-e LINE_NOTIFY_CLIENT_SECRET= -e LINE_NOTIFY_REDIRECT_URI= \
 -p 5000:5000 lotify-swagger  
 ```
 # 步驟
