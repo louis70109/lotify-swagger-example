@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
 
 DOMAIN = os.environ.get('DOMAIN_NAME')
-PORT = os.environ.get('PORT') or 5000
+PORT = os.environ.get('PORT')
 
 
 def is_local():
