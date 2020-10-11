@@ -47,11 +47,12 @@
       fetch("/notify/sticker", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userText, token: "{{token}}" }),
+        body: JSON.stringify({ message: userText, token: "{{token}}", package_id: "1", sticker_id: "1" }),
       }).then((response) => {
         alert("貼圖已發送！");
       });
     });
+
 
     submit_url = document.getElementById("submit_url");
     submit_url.addEventListener("click", () => {
